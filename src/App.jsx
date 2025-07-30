@@ -1,3 +1,4 @@
+import Timer from "./components/Timer"
 
 
 function App() {
@@ -5,7 +6,7 @@ function App() {
 
   return (
     <>
-     
+     <Timer/>
     </>
   )
 }
