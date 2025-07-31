@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   breakLength: 5,            // default value break
   sessionLength: 25,         // default value session
-
+  isRunning: false, // timer in start or pause
+  timeLeft: 25 * 60
 };
 
 const timerSlice = createSlice({
@@ -38,11 +39,21 @@ const timerSlice = createSlice({
     resetTimer: (state) => {
       state.breakLength = initialState.breakLength;
       state.sessionLength = initialState.sessionLength;
+      state.isRunning = false;
+      state.timeLeft = initialState.sessionLength * 60;
+    },
+    toggleRunning(state) {
+      state.isRunning = !state.isRunning;
+    },
+    decrementTime(state) {
+      if (state.timeLeft > 0) {
+        state.timeLeft -= 1;
+      }
     },
   }
   
 });
 
-export const {  incrementBreak, decrementBreak, incrementSession, decrementSession, resetTimer } = timerSlice.actions;
+export const {  incrementBreak, decrementBreak, incrementSession, decrementSession, resetTimer, toggleRunning, decrementTime, timeLeft } = timerSlice.actions;
 
 export default timerSlice.reducer;
