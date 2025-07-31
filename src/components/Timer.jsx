@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { FaArrowUp, FaArrowDown, FaPlay, FaPause, FaSync } from 'react-icons/fa';
 import { incrementBreak,decrementBreak,incrementSession,decrementSession, resetTimer, toggleRunning, decrementTime } from '../features/timer/timerSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import TimerAudio from './TimerAudio';
 
 
 
@@ -18,7 +19,15 @@ const formatTime = (seconds) => {
   return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
+const handleReset = () => {
+  dispatch(resetTimer()); 
 
+  const audio = document.getElementById("beep");
+  if (audio) {
+    audio.pause();          //  Stop sound
+    audio.currentTime = 0;  //  reset sound to the beginning
+  }
+};
 
 useEffect(()=>{
     let intervalId;
@@ -26,12 +35,20 @@ useEffect(()=>{
     if(isRunning) {
         intervalId = setInterval(()=>{
             dispatch(decrementTime());
-            
+          
         }, 1000);
     }
 
     return () => clearInterval(intervalId);
 }, [isRunning, dispatch])
+
+
+useEffect(() => {
+  if (timeLeft === 0) {
+    const audio = document.getElementById("beep");
+    audio?.play();
+  }
+}, [timeLeft]);
 
   return (
     <div>
@@ -78,13 +95,13 @@ useEffect(()=>{
                 <i><FaPlay /></i>
                 <i><FaPause /></i>
             </button>
-            <button id="reset" onClick={() => dispatch(resetTimer())} >
+            <button id="reset" onClick={handleReset}>
                 <i><FaSync /></i>
             </button>
         </div>
 
 
-
+    <TimerAudio/>
     </div>
   )
 }
