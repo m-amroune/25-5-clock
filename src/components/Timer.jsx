@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FaArrowUp, FaArrowDown, FaPlay, FaPause, FaSync } from 'react-icons/fa';
-import { incrementBreak,decrementBreak,incrementSession,decrementSession, resetTimer, toggleRunning, decrementTime, timeLeft } from '../features/timer/timerSlice';
+import { incrementBreak,decrementBreak,incrementSession,decrementSession, resetTimer, toggleRunning, decrementTime } from '../features/timer/timerSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -26,6 +26,7 @@ useEffect(()=>{
     if(isRunning) {
         intervalId = setInterval(()=>{
             dispatch(decrementTime());
+            
         }, 1000);
     }
 
