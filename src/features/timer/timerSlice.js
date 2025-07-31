@@ -24,11 +24,12 @@ const timerSlice = createSlice({
             state.breakLength -= 1;
         }
     },
+    // set timeLeft to break duration and update label
     startBreak(state) {
   state.timeLeft = state.breakLength * 60;
   state.timerLabel = 'Break';
 },
-
+// set timeLeft to session duration and update label
 startSession(state) {
   state.timeLeft = state.sessionLength * 60;
   state.timerLabel = 'Session';
@@ -62,9 +63,11 @@ startSession(state) {
       state.timerLabel = initialState.timerLabel;
 
     },
+     // toggle timer between running and paused state
     toggleRunning(state) {
       state.isRunning = !state.isRunning;
     },
+    // decrease timeLeft by 1 second
     decrementTime(state) {
       if (state.timeLeft > 0) {
         state.timeLeft -= 1;

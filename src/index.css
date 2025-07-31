@@ -15,7 +15,7 @@ html, body {
 /* TITLE   */
 
 .main-title{
-font-size: 2rem;
+font-size: 2.5rem;
 font-weight: bold;
 text-align: center;
 margin: 2rem 0;
@@ -46,12 +46,17 @@ margin: 2rem 0;
   gap: 0.5rem;
 }
 
+#break-label, #session-label{
+  font-size: 2rem;
+}
+
 .btn-level{
     background-color: #3a9b9b;
     color: #fff;
     cursor: pointer;
     border: none;
     background: none;
+    font-size: 2rem;
 }
 
 .length-value{
@@ -61,22 +66,104 @@ margin: 2rem 0;
     text-align: center;
 }
 
+.length-value{
+  font-size: 2rem;
+}
 
 /* TIMER  */
 
 .timer {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .timer-wrapper {
   border: 7px solid #13353a;
-  padding: 3rem;
+  padding: 1.5rem;
+  width: 300px;
+  border-radius: 50px;
+  margin-bottom: 1rem;
 }
 
 .timer-control {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
+}
+
+
+#timer-label{
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#time-left{
+  font-size: 2rem;
+}
+
+#start_stop{
+  padding: 0.1rem;
+  display: flex;
+  gap: 0.2rem
+}
+
+#reset{
+  padding: 0.1rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 500px) {
+  .main-title {
+    font-size: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .controls-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .length-control {
+    margin: 0.5rem 0;
+  }
+
+  #break-label, #session-label {
+    font-size: 1.5rem;
+  }
+
+  .length-value {
+    font-size: 1.5rem;
+    width: 2.5rem;
+  }
+
+  .btn-level {
+    font-size: 1.5rem;
+  }
+
+  .timer-wrapper {
+    width: 90%;
+    padding: 1rem;
+    border-radius: 30px;
+  }
+
+  #timer-label,
+  #time-left {
+    font-size: 1.5rem;
+  }
+
+  .timer-control {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #start_stop,
+  #reset {
+    width: 100px;
+    font-size: 1rem;
+  }
 }

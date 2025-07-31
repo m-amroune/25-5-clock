@@ -1,7 +1,7 @@
 import React from 'react'
 
 const TimerAudio = () => {
-
+// Audio element for timer alarm sound
   return (
     <audio
       id="beep"
