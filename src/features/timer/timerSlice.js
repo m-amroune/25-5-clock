@@ -4,7 +4,8 @@ const initialState = {
   breakLength: 5,            // default value break
   sessionLength: 25,         // default value session
   isRunning: false, // timer in start or pause
-  timeLeft: 25 * 60
+  timeLeft: 25 * 60,
+  timerLabel: "Session"
 };
 
 const timerSlice = createSlice({
@@ -23,6 +24,15 @@ const timerSlice = createSlice({
             state.breakLength -= 1;
         }
     },
+    startBreak(state) {
+  state.timeLeft = state.breakLength * 60;
+  state.timerLabel = 'Break';
+},
+
+startSession(state) {
+  state.timeLeft = state.sessionLength * 60;
+  state.timerLabel = 'Session';
+},
      //  increase session duration (max 60 min)
    incrementSession: (state) => {
   if (state.sessionLength < 60) {
@@ -41,12 +51,16 @@ const timerSlice = createSlice({
     }
   }
 },
+
+
     //  reset durations with values by default
     resetTimer: (state) => {
       state.breakLength = initialState.breakLength;
       state.sessionLength = initialState.sessionLength;
       state.isRunning = false;
       state.timeLeft = initialState.sessionLength * 60;
+      state.timerLabel = initialState.timerLabel;
+
     },
     toggleRunning(state) {
       state.isRunning = !state.isRunning;
@@ -60,6 +74,6 @@ const timerSlice = createSlice({
   
 });
 
-export const {  incrementBreak, decrementBreak, incrementSession, decrementSession, resetTimer, toggleRunning, decrementTime } = timerSlice.actions;
+export const {  incrementBreak, decrementBreak, startBreak,startSession, incrementSession, decrementSession, resetTimer, toggleRunning, decrementTime } = timerSlice.actions;
 
 export default timerSlice.reducer;

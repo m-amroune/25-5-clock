@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FaArrowUp, FaArrowDown, FaPlay, FaPause, FaSync } from 'react-icons/fa';
-import { incrementBreak,decrementBreak,incrementSession,decrementSession, resetTimer, toggleRunning, decrementTime } from '../features/timer/timerSlice';
+import { incrementBreak,decrementBreak, startBreak,startSession, incrementSession,decrementSession, resetTimer, toggleRunning, decrementTime } from '../features/timer/timerSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import TimerAudio from './TimerAudio';
 
@@ -12,6 +12,8 @@ const breakLength = useSelector(state => state.timer.breakLength);
 const sessionLength = useSelector(state => state.timer.sessionLength);
 const isRunning = useSelector(state => state.timer.isRunning  );
 const timeLeft = useSelector((state) => state.timer.timeLeft);
+const timerLabel = useSelector(state => state.timer.timerLabel);
+
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -45,10 +47,21 @@ useEffect(()=>{
 
 useEffect(() => {
   if (timeLeft === 0) {
+    // 1. Lire et jouer le son
     const audio = document.getElementById("beep");
     audio?.play();
+
+    // 2. Attendre 1 seconde avant de basculer
+    setTimeout(() => {
+      if (timerLabel === 'Session') {
+        dispatch(startBreak());
+      } else {
+        dispatch(startSession());
+      }
+    }, 1000); // ⏳ Laisse "00:00" affiché pendant 1s
   }
-}, [timeLeft]);
+}, [timeLeft, timerLabel, dispatch]);
+
 
   return (
     <div>
@@ -84,7 +97,7 @@ useEffect(() => {
 
         <div className='timer' >
             <div className='timer-wrapper' >
-                <div id="timer-label" >Session</div>
+                <div id="timer-label" >{timerLabel}</div>
                 <div id="time-left" >{formatTime(timeLeft)}</div>
             </div>
         </div>
