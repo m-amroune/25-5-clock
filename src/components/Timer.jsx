@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaArrowUp, FaArrowDown, FaPlay, FaPause, FaSync } from 'react-icons/fa';
-import { incrementBreak,decrementBreak,incrementSession,decrementSession } from '../features/timer/timerSlice';
+import { incrementBreak,decrementBreak,incrementSession,decrementSession, resetTimer } from '../features/timer/timerSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -54,7 +54,7 @@ const sessionLength = useSelector(state => state.timer.sessionLength);
                 <i><FaPlay /></i>
                 <i><FaPause /></i>
             </button>
-            <button id="reset" >
+            <button id="reset" onClick={() => dispatch(resetTimer())} >
                 <i><FaSync /></i>
             </button>
         </div>
