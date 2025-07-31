@@ -1,7 +1,15 @@
 import React from 'react'
 import { FaArrowUp, FaArrowDown, FaPlay, FaPause, FaSync } from 'react-icons/fa';
+import { incrementBreak,decrementBreak,incrementSession,decrementSession } from '../features/timer/timerSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
+
 
 const Timer = () => {
+ const dispatch = useDispatch();
+const breakLength = useSelector(state => state.timer.breakLength);
+const sessionLength = useSelector(state => state.timer.sessionLength);
+
   return (
     <div>
       
@@ -10,11 +18,11 @@ const Timer = () => {
         <div className='length-control' >
             <div id="break-label" >Break Length</div>
             <div className='value-controls'>
-            <button className='btn-level' id="break-decrement" >
+            <button className='btn-level' id="break-decrement" onClick={() => dispatch(decrementBreak())} >
                 <i><FaArrowDown/> </i>
             </button>
-            <div id="break-length"  className='length-value' >5</div>
-            <button  id="break-increment" className='btn-level' >
+            <div id="break-length"  className='length-value' > {breakLength}  </div>
+            <button  id="break-increment" className='btn-level' onClick={() => dispatch(incrementBreak())} >
                 <i><FaArrowUp /></i>
             </button>
         </div>
@@ -22,11 +30,11 @@ const Timer = () => {
         <div className='length-control' >
             <div id="session-label" >Session Length</div>
             <div className='value-controls'>
-            <button className='btn-level' id='session-decrement' >
+            <button className='btn-level' id='session-decrement' onClick={() => dispatch(decrementSession())} >
                 <i><FaArrowDown/></i>
             </button>
-            <div className='length-value' >25</div>
-            <button className='btn-level' id='session-increment' >
+            <div id="session-length" className='length-value' >{sessionLength}</div>
+            <button className='btn-level' id='session-increment' onClick={() => dispatch(incrementSession())} >
                 <i><FaArrowUp /></i>
             </button>
         </div>
